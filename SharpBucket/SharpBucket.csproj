@@ -53,12 +53,14 @@
     <Compile Include="Authentication\Token.cs" />
     <Compile Include="Utility\ObjectToDictionaryHelper.cs" />
     <Compile Include="V1\EndPoints\IssueResource.cs" />
+    <Compile Include="V1\EndPoints\PullRequestsResource.cs" />
     <Compile Include="V1\EndPoints\PrivilegesEndPoint.cs" />
     <Compile Include="V1\Pocos\Followers.cs" />
     <Compile Include="V1\Pocos\IssueSearchParameters.cs" />
     <Compile Include="V1\Pocos\Link.cs" />
     <Compile Include="V1\Pocos\LinkInfo.cs" />
     <Compile Include="V1\Pocos\MainBranch.cs" />
+    <Compile Include="V1\Pocos\PullRequestComment.cs" />
     <Compile Include="V1\Pocos\RepositoryPrivileges.cs" />
     <Compile Include="V1\Pocos\RepositoryPrivilegesUser.cs" />
     <Compile Include="V1\Pocos\RepositorySimple.cs" />

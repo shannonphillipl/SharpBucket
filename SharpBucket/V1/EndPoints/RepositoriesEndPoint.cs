@@ -377,6 +377,15 @@ namespace SharpBucket.V1.EndPoints{
 
         #endregion
 
+        #region Pull Requests Resource
+
+        internal PullRequestComment PostPullRequestComment(PullRequestComment comment, int pull_request_id){
+            var overrideUrl = String.Format(_baserUrl + "pullrequests/{0}/comments", pull_request_id);
+            return _sharpBucketV1.Post(comment, overrideUrl);
+        }
+
+        #endregion
+
         #region Links Resource
 
         /// <summary>
