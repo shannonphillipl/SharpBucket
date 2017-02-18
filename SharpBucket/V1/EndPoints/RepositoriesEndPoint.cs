@@ -384,6 +384,12 @@ namespace SharpBucket.V1.EndPoints{
             return _sharpBucketV1.Post(comment, overrideUrl);
         }
 
+        internal PullRequestComment DeletePullRequestComment(PullRequestComment comment, int pull_request_id)
+        {
+            var overrideUrl = String.Format(_baserUrl + "pullrequests/{0}/comments/{1}", pull_request_id, comment.id);
+            return _sharpBucketV1.Delete(comment, overrideUrl);
+        }
+
         #endregion
 
         #region Links Resource
