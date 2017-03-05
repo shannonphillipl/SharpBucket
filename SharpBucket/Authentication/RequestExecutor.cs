@@ -17,14 +17,18 @@ namespace SharpBucket.Authentication{
             }
             var result = client.Execute<T>(request);
 
-            if (result.ErrorException != null) {
-                throw new WebException("REST client encountered an error: " + result.ErrorMessage, result.ErrorException);
-            }
             // This is a hack in order to allow this method to work for simple types as well
             // one example of this is the GetRevisionRaw method
             if (RequestingSimpleType<T>()){
               return result.Content as dynamic;
             }
+
+            // TODO - not sure if I should have moved this or not; need to think this through
+            if (result.ErrorException != null)
+            {
+                throw new WebException("REST client encountered an error: " + result.ErrorMessage, result.ErrorException);
+            }
+
             return result.Data;
         }
 

@@ -136,8 +136,8 @@ namespace SharpBucket.V2.EndPoints{
         /// </summary>
         /// <param name="options">The diff options.</param>
         /// <returns></returns>
-        public object GetDiff(object options){
-            return _repositoriesEndPoint.GetDiff(_accountName, _repository, options);
+        public string GetDiff(string sourceCommit, string destinationCommit) {
+            return _repositoriesEndPoint.GetDiff(_accountName, _repository, sourceCommit, destinationCommit);
         }
 
         /// <summary>
