@@ -10,7 +10,7 @@ namespace SharpBucket.Authentication {
             : base(consumerKey, consumerSecret, baseUrl) {
         }
 
-        public void GetToken() {
+        public string GetToken() {
             var tempClient = new RestClient(TokenUrl) {
                 Authenticator = new HttpBasicAuthenticator(ConsumerKey, ConsumerSecret),
             };
@@ -25,6 +25,7 @@ namespace SharpBucket.Authentication {
             client = new RestClient (_baseUrl) {
                 Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(_token, TokenType)
             };
+            return _token;
         }
     }
 }
