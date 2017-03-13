@@ -18,7 +18,7 @@ namespace SharpBucket.V1.EndPoints{
         {
             return _repositoriesEndPoint.PostPullRequestComment(comment, pullRequestId);
         }
-
+        
         public PullRequestComment DeletePullRequestComment(PullRequestComment comment, int pullRequestId)
         {
             return _repositoriesEndPoint.DeletePullRequestComment(comment, pullRequestId);

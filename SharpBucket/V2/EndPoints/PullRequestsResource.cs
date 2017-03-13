@@ -105,7 +105,7 @@ namespace SharpBucket.V2.EndPoints{
          return _repositoriesEndPoint.DeclinePullRequest(_accountName, _repository, pullRequestId);
       }
 
-      internal object ListPullRequestComments(int pullRequestId){
+      internal List<Comment> ListPullRequestComments(int pullRequestId){
          return _repositoriesEndPoint.ListPullRequestComments(_accountName, _repository, pullRequestId);
       }
 

@@ -1,4 +1,6 @@
-﻿namespace SharpBucket.V2.EndPoints{
+﻿using System.Collections.Generic;
+using SharpBucket.V2.Pocos;
+namespace SharpBucket.V2.EndPoints{
    /// <summary>
    /// A "Virtual" resource that offers easier manipulation of the pull request.
    /// </summary>
@@ -85,7 +87,7 @@
       /// List of comments on the specified pull request. 
       /// </summary>
       /// <returns></returns>
-      public object ListPullRequestComments(){
+      public List<Comment> ListPullRequestComments(){
          return _repositoriesEndPoint.ListPullRequestComments(_accountName, _repository, _pullRequestId);
       }
 
