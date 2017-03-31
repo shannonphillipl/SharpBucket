@@ -8,6 +8,6 @@
         public string updated_on { get; set; }
         public int? id { get; set; }
         public int? line_from { get; set; }
-        public PullRequestCommentInfo inline { get; set; }
+        public PullRequestInlineCommentInfo inline { get; set; }
     }
 }

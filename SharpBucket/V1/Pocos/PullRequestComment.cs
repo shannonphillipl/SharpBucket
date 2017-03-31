@@ -4,7 +4,7 @@ namespace SharpBucket.V1.Pocos
 {
     public class PullRequestComment
     {
-        public int? id { get; set;  }
+        public int? comment_id { get; set;  }
         public int? parent_id { get; set; }
         public string filename { get; set; }
         public string content { get; set; }
