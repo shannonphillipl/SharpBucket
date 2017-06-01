@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SharpBucket.V2.Pocos;
+using System.Linq;
 
 namespace SharpBucket.V2.EndPoints{
     /// <summary>
@@ -11,6 +12,19 @@ namespace SharpBucket.V2.EndPoints{
 
         public TeamsEndPoint(SharpBucketV2 sharpBucketV2, string teamName)
             : base(sharpBucketV2, "teams/" + teamName + "/") {
+        }
+
+        /// <summary>
+        /// Get teams associated with a given user
+        /// </summary>
+        public List<Team> ListTeams(int max = 0)
+        {
+            var overrideUrl = "teams/";
+            var roleContributorOrgs = new List<Team>();
+            var roleAdminOrgs = new List<Team>();
+            roleContributorOrgs.AddRange(GetPaginatedValues<Team>(overrideUrl, max, "contributor"));
+            roleAdminOrgs.AddRange(GetPaginatedValues<Team>(overrideUrl, max, "admin"));
+            return roleAdminOrgs.Concat(roleContributorOrgs).ToList();
         }
 
         /// <summary>
