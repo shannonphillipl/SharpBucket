@@ -20,11 +20,29 @@ namespace SharpBucket.V2.EndPoints{
         public List<Team> ListTeams(int max = 0)
         {
             var overrideUrl = "teams/";
-            var roleContributorOrgs = new List<Team>();
-            var roleAdminOrgs = new List<Team>();
-            roleContributorOrgs.AddRange(GetPaginatedValues<Team>(overrideUrl, max, "contributor"));
-            roleAdminOrgs.AddRange(GetPaginatedValues<Team>(overrideUrl, max, "admin"));
-            return roleAdminOrgs.Concat(roleContributorOrgs).ToList();
+            var roleAdminTeams = new List<Team>();
+            var allUniqueTeams = new List<Team>();
+            roleAdminTeams.AddRange(GetPaginatedValues<Team>(overrideUrl, max, "admin"));
+
+            allUniqueTeams.AddRange(GetPaginatedValues<Team>(overrideUrl, max, "contributor"));
+            foreach (var ao in roleAdminTeams)
+            {
+                if (!allUniqueTeams.Any(r => r.username == ao.username))
+                {
+                    allUniqueTeams.Add(ao);
+                }
+            }
+
+            return allUniqueTeams;
+        }
+
+        /// <summary>
+        /// Get all teams of which the authorized user is an admin
+        /// </summary>
+        public List<Team> ListAdminTeams(int max = 0)
+        {
+            var overrideUrl = "teams/";
+            return GetPaginatedValues<Team>(overrideUrl, max, "admin");
         }
 
         /// <summary>
