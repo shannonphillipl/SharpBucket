@@ -46,9 +46,10 @@
   <ItemGroup>
     <Compile Include="Authentication\BasicAuthentication.cs" />
     <Compile Include="Authentication\OauthAuthentication.cs" />
+    <Compile Include="Authentication\OAuthentication2.cs" />
+    <Compile Include="Authentication\OAuthentication2ExistingToken.cs" />
     <Compile Include="Authentication\OAuthentication2Legged.cs" />
     <Compile Include="Authentication\OAuthentication3Legged.cs" />
-    <Compile Include="Authentication\OAuthentication2.cs" />
     <Compile Include="Authentication\RequestExecutor.cs" />
     <Compile Include="Authentication\Token.cs" />
     <Compile Include="Utility\ObjectToDictionaryHelper.cs" />

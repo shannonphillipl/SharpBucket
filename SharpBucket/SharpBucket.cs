@@ -76,15 +76,29 @@ namespace SharpBucket{
         }
 
         /// <summary>
-        /// Use Oauth2 authentication. This is the neweset version and is prefered.
+        /// Use Oauth2 authentication. This generates a token in the context of the owner of the OAuth client and secret. All calls
+        /// made using this token are done as the token owner.
         /// </summary>
         /// <param name="consumerKey"></param>
         /// <param name="consumerSecretKey"></param>
         /// <returns></returns>
-        public OAuthentication2 OAuthentication2(string consumerKey, string consumerSecretKey){
+        public OAuthentication2 OAuthentication2(string consumerKey, string consumerSecretKey)
+        {
             authenticator = new OAuthentication2(consumerKey, consumerSecretKey, _baseUrl);
-            ((OAuthentication2) authenticator).GetToken();
-            return (OAuthentication2) authenticator;
+            ((OAuthentication2)authenticator).GetToken();
+            return (OAuthentication2)authenticator;
+        }
+
+        /// <summary>
+        /// Use Oauth2 authentication. This takes an existing token that was issued. Calls are made in the context of the user generating the token.
+        /// </summary>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecretKey"></param>
+        /// <returns></returns>
+        public OAuthentication2ExistingToken OAuthentication2ExistingToken(string token)
+        {
+            authenticator = new OAuthentication2ExistingToken(token, _baseUrl);
+            return (OAuthentication2ExistingToken)authenticator;
         }
 
         private T Send<T>(T body, Method method, string overrideUrl = null, Dictionary<string, object> requestParameters = null) {
