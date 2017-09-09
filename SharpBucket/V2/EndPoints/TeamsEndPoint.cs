@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Dynamic;
 using SharpBucket.V2.Pocos;
 using System.Linq;
 
@@ -14,6 +15,13 @@ namespace SharpBucket.V2.EndPoints{
             : base(sharpBucketV2, "teams/" + teamName + "/") {
         }
 
+        public List<Team> GetUserTeams(int max = 0) {
+            dynamic parameters = new ExpandoObject();
+            parameters.role = "member";
+            return GetPaginatedValues<Team>("teams/", max, parameters);
+            //return _sharpBucketV2.Get<List<Team>>(null, "teams/", parameters);
+        }
+
         /// <summary>
         /// Get teams associated with a given user
         /// </summary>
@@ -22,9 +30,15 @@ namespace SharpBucket.V2.EndPoints{
             var overrideUrl = "teams/";
             var roleAdminTeams = new List<Team>();
             var allUniqueTeams = new List<Team>();
-            roleAdminTeams.AddRange(GetPaginatedValues<Team>(overrideUrl, max, "admin"));
 
-            allUniqueTeams.AddRange(GetPaginatedValues<Team>(overrideUrl, max, "contributor"));
+            dynamic parameters1 = new ExpandoObject();
+            parameters1.role = "admin";
+            roleAdminTeams.AddRange(GetPaginatedValues<Team>(overrideUrl, max, parameters1));
+
+            dynamic parameters2 = new ExpandoObject();
+            parameters2.role = "contributor";
+
+            allUniqueTeams.AddRange(GetPaginatedValues<Team>(overrideUrl, max, parameters2));
             foreach (var ao in roleAdminTeams)
             {
                 if (!allUniqueTeams.Any(r => r.username == ao.username))
@@ -42,7 +56,9 @@ namespace SharpBucket.V2.EndPoints{
         public List<Team> ListAdminTeams(int max = 0)
         {
             var overrideUrl = "teams/";
-            return GetPaginatedValues<Team>(overrideUrl, max, "admin");
+            dynamic parameters = new ExpandoObject();
+            parameters.role = "admin";
+            return GetPaginatedValues<Team>(overrideUrl, max, parameters);
         }
 
         /// <summary>

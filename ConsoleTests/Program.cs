@@ -215,7 +215,7 @@ namespace ConsoleTests{
             var restriction = repositoryResource.GetBranchRestriction(restrictionId);
             var newRestiction = repositoryResource.PutBranchRestriction(new BranchRestriction());
             var deletedRestiction = repositoryResource.DeleteBranchRestriction(restrictionId);
-            var diff = repositoryResource.GetDiff(null);
+            var diff = repositoryResource.GetDiff(null, null);
             var patch = repositoryResource.GetPatch(null);
             var commits = repositoryResource.ListCommits();
             string commitId = "sdfsdf";
@@ -237,7 +237,7 @@ namespace ConsoleTests{
             var gr = r.GetBranchRestriction(restrictionId);
             var nr = r.PostBranchRestriction(new BranchRestriction());
             var dbr = r.DeleteBranchRestriction(restrictionId);
-            var diff2 = r.GetDiff(new object());
+            var diff2 = r.GetDiff(null, null);
             var patch2 = r.GetPatch(new object());
             var commits2 = r.ListCommits();
             var commit2 = r.GetCommit(commitId);

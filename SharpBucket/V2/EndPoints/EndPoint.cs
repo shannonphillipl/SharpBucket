@@ -22,18 +22,18 @@ namespace SharpBucket.V2.EndPoints {
         /// <typeparam name="TValue"></typeparam>
         /// <param name="overrideUrl"></param>
         /// <param name="pageLen"></param>
+        /// <param name="requestParameters"></param>
         /// <returns></returns>
-        private IEnumerable<List<TValue>> IteratePages<TValue>(string overrideUrl, int pageLen = DEFAULT_PAGE_LEN, string role = null) {
+        private IEnumerable<List<TValue>> IteratePages<TValue>(string overrideUrl, int pageLen = DEFAULT_PAGE_LEN, IDictionary<string, object> requestParameters = null) {
             Debug.Assert(!String.IsNullOrEmpty(overrideUrl));
             Debug.Assert(!overrideUrl.Contains("?"));
 
-            dynamic requestParameters= new ExpandoObject();
-            requestParameters.pagelen = pageLen;
-            if (role != null)
+            if (requestParameters == null)
             {
-                requestParameters.role = role;
+                requestParameters = new Dictionary<string, object>();
             }
 
+            requestParameters["pagelen"] = pageLen;
             IteratorBasedPage<TValue> response;
             int page = 1;
             do {
@@ -42,7 +42,7 @@ namespace SharpBucket.V2.EndPoints {
 
                 yield return response.values;
                 
-                requestParameters.page = ++page;
+                requestParameters["page"] = ++page;
             } while (!String.IsNullOrEmpty(response.next));
         }
 
@@ -52,16 +52,17 @@ namespace SharpBucket.V2.EndPoints {
         /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <param name="overrideUrl">The override URL.</param>
         /// <param name="max">Set to 0 for unlimited size.</param>
+        /// <param name="requestParameters"></param>
         /// <returns></returns>
         /// <exception cref="System.Net.WebException">Thrown when the server fails to respond.</exception>
-        protected List<TValue> GetPaginatedValues<TValue>(string overrideUrl, int max = 0, string role = null) {
+        protected List<TValue> GetPaginatedValues<TValue>(string overrideUrl, int max = 0, IDictionary<string, object> requestParameters = null) {
             bool isMaxConstrained = max > 0;
 
             int pageLen = (isMaxConstrained && max < DEFAULT_PAGE_LEN) ? max : DEFAULT_PAGE_LEN;
 
             List<TValue> values = new List<TValue>();
 
-            foreach (var page in IteratePages<TValue>(overrideUrl, pageLen, role)) {
+            foreach (var page in IteratePages<TValue>(overrideUrl, pageLen, requestParameters)) {
                 if (page == null) { break; }
 
                 if (isMaxConstrained &&
