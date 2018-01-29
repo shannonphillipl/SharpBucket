@@ -1,19 +1,29 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using RestSharp;
 using RestSharp.Deserializers;
 
-namespace SharpBucket.Authentication{
-    internal class RequestExecutor{
-        public static T ExecuteRequest<T>(string url, Method method, T body, RestClient client, IDictionary<string, object> requestParameters) where T : new(){
+namespace SharpBucket.Authentication
+{
+    internal class RequestExecutor
+    {
+        internal const string BITBUCKET_URL_V1 = "https://bitbucket.org/api/1.0";
+        internal const string BITBUCKET_URL_V2 = "https://api.bitbucket.org/2.0";
+        public static T ExecuteRequest<T>(string url, Method method, T body, RestClient client, IDictionary<string, object> requestParameters)
+            where T : new()
+        {
             var request = new RestRequest(url, method);
-            if (requestParameters != null){
-                foreach (var requestParameter in requestParameters){
+            if (requestParameters != null)
+            {
+                foreach (var requestParameter in requestParameters)
+                {
                     request.AddParameter(requestParameter.Key, requestParameter.Value);
                 }
             }
 
-            if (ShouldAddBody(method)){
+            if (ShouldAddBody(method))
+            {
                 request.RequestFormat = DataFormat.Json;
                 request.AddObject(body);
             }
@@ -23,12 +33,17 @@ namespace SharpBucket.Authentication{
 
             client.ClearHandlers();
             client.AddHandler("application/json", new JsonDeserializer());
-            var result = client.Execute<T>(request);
+            var result = ExectueRequest<T>(method, client, request);
 
+            if (result.ErrorException != null)
+            {
+                throw new WebException("REST client encountered an error: " + result.ErrorMessage, result.ErrorException);
+            }
             // This is a hack in order to allow this method to work for simple types as well
             // one example of this is the GetRevisionRaw method
-            if (RequestingSimpleType<T>()){
-              return result.Content as dynamic;
+            if (RequestingSimpleType<T>())
+            {
+                return result.Content as dynamic;
             }
 
             // TODO - not sure if I should have moved this or not; need to think this through
@@ -40,12 +55,44 @@ namespace SharpBucket.Authentication{
             return result.Data;
         }
 
-       private static bool ShouldAddBody(Method method){
-            return method == Method.PUT || method == Method.POST;
-       }
+        private static IRestResponse<T> ExectueRequest<T>(Method method, RestClient client, RestRequest request)
+            where T : new()
+        {
+            IRestResponse<T> result;
 
-       private static bool RequestingSimpleType<T>() where T : new(){
-          return typeof(T) == typeof(object);
-       }
+            client.FollowRedirects = false;
+            result = client.Execute<T>(request);
+            if (result.StatusCode == HttpStatusCode.Redirect)
+            {
+                var redirectUrl = GetRedirectUrl(result);
+                request = new RestRequest(redirectUrl, method);
+                result = client.Execute<T>(request);
+            }
+            return result;
+        }
+
+        private static string GetRedirectUrl(IRestResponse result)
+        {
+            var redirectUrl = result.Headers.Where(header => header.Name == "Location").Select(header => header.Value).First().ToString();
+            if (redirectUrl.Contains(BITBUCKET_URL_V1))
+            {
+                return redirectUrl.Replace(BITBUCKET_URL_V1, "");
+            }
+            else
+            {
+                return redirectUrl.Replace(BITBUCKET_URL_V2, "");
+            }
+        }
+
+        private static bool ShouldAddBody(Method method)
+        {
+            return method == Method.PUT || method == Method.POST;
+        }
+
+        private static bool RequestingSimpleType<T>()
+            where T : new()
+        {
+            return typeof(T) == typeof(object);
+        }
     }
 }

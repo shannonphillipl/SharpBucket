@@ -3,78 +3,83 @@ using SharpBucket.V1;
 using SharpBucket.V1.EndPoints;
 using SharpBucket.V1.Pocos;
 using Shouldly;
+using System;
 using System.Collections.Generic;
 
-namespace SharBucketTests.V1.EndPoints {
+namespace SharBucketTests.V1.EndPoints
+{
     [TestFixture]
-    public class GroupsEndPointTests {
-
+    public class GroupsEndPointTests
+    {
         private SharpBucketV1 sharpBucket;
         private GroupsEndPoint groupsEndPoint;
-        private const string ACCOUNT_NAME = "mxgod";
+        private string accountName;
 
         [SetUp]
-        public void Init() {
+        public void Init()
+        {
             sharpBucket = TestHelpers.GetV1ClientAuthenticatedWithOAuth();
-            groupsEndPoint = sharpBucket.GroupsEndPoint(ACCOUNT_NAME);
+            accountName = TestHelpers.GetAccountName();
+            groupsEndPoint = sharpBucket.GroupsEndPoint(accountName);
         }
 
-        //[OneTimeTearDown]
-        //public void Cleanup() {
-        //    groupsEndPoint.DeleteGroup("mygroup");
-        //    groupsEndPoint.DeleteGroup("admingroup");
-        //    groupsEndPoint.DeleteGroup("testgroup");
-        //}
-
         [Test]
-        [TestCase("MyGroup")]
-        public void CreateGroup_ForLoggedUser_ShouldReturnCreatedGroup(string name) {
+        public void CreateGroup_ForLoggedUser_ShouldReturnCreatedGroup()
+        {
             groupsEndPoint.ShouldNotBe(null);
 
+            var name = Guid.NewGuid().ToString().Replace("-", string.Empty);
             var group = groupsEndPoint.CreateGroup(name);
 
             group.ShouldNotBe(null);
             group.ShouldBeOfType(typeof(Group));
-            group.name.ShouldBe("MyGroup");
+            group.name.ShouldBe(name);
             group.permission.ShouldBe(null); //test that a default group was created
-            group.members.Count.ShouldBe(0);  //test that a default group was created
-
+            group.members.Count.ShouldBe(0); //test that a default group was created
+            groupsEndPoint.DeleteGroup(name);
         }
 
         [Test]
-        [TestCase("mygroup")]
-        public void DeleteGroup_ShouldNotHaveGroup_WhenGet(string slug) {
+        public void DeleteGroup_ShouldNotHaveGroup_WhenGet()
+        {
             groupsEndPoint.ShouldNotBe(null);
 
-            groupsEndPoint.DeleteGroup(slug);
-            var group = groupsEndPoint.GetGroup(slug);
+            var name = Guid.NewGuid().ToString().Replace("-", string.Empty);
+            var group = groupsEndPoint.CreateGroup(name);
+
+            groupsEndPoint.DeleteGroup(name);
+            group = groupsEndPoint.GetGroup(name);
             group.ShouldBe(null);
         }
 
         [Test]
-        public void AddMemberToGroup_ShouldReturnAddedMember() {
+        public void AddMemberToGroup_ShouldReturnAddedMember()
+        {
             groupsEndPoint.ShouldNotBe(null);
 
-            var group = new Group() { name = "AdminGroup" };
+            var name = Guid.NewGuid().ToString().Replace("-", string.Empty);
+            var group = new Group() { name = name };
             var new_group = groupsEndPoint.CreateGroup(group.name); //create a new group before adding a member to it
 
             new_group.ShouldNotBe(null);
-            var member = groupsEndPoint.AddMemberToGroup(new_group.slug, ACCOUNT_NAME);
+            var member = groupsEndPoint.AddMemberToGroup(new_group.slug, accountName);
 
             member.ShouldNotBe(null);
             member.ShouldBeOfType(typeof(User));
-            member.username.ShouldBe(ACCOUNT_NAME);
+            member.username.ShouldBe(accountName);
+            groupsEndPoint.DeleteGroup(name);
         }
 
         [Test]
-        public void ListGroupMembers_ShouldCorrectlyListAllMembers() {
+        public void ListGroupMembers_ShouldCorrectlyListAllMembers()
+        {
             groupsEndPoint.ShouldNotBe(null);
-
-            var group = new Group() { name = "TestGroup" };
-            var new_group = groupsEndPoint.CreateGroup(group.name); //create a new group before 
+            var name = Guid.NewGuid().ToString().Replace("-", string.Empty);
+            var group = new Group() { name = name };
+            var new_group = groupsEndPoint.CreateGroup(group.name); //create a new group before
 
             new_group.ShouldNotBe(null);
-            var member = groupsEndPoint.AddMemberToGroup(new_group.slug, ACCOUNT_NAME);
+            var member = groupsEndPoint.AddMemberToGroup(new_group.slug, accountName);
 
             var all_members = groupsEndPoint.ListGroupMembers(new_group.slug);
 
@@ -82,10 +87,12 @@ namespace SharBucketTests.V1.EndPoints {
             all_members.ShouldBeOfType(typeof(List<User>));
             all_members.Count.ShouldBeGreaterThan(0);
             all_members.Find(x => x.username == member.username).ShouldNotBe(null); //test the newly created member is listed
+            groupsEndPoint.DeleteGroup(name);
         }
 
-       [Test]
-        public void ListAllGroups_FromLoggedUser_ShouldReturnAllGroups() {
+        [Test]
+        public void ListAllGroups_FromLoggedUser_ShouldReturnAllGroups()
+        {
             groupsEndPoint.ShouldNotBe(null);
 
             var groups = groupsEndPoint.ListGroups();
@@ -97,16 +104,15 @@ namespace SharBucketTests.V1.EndPoints {
         }
 
         [Test]
-        public void GetSingleGroup_FromLoggedUser_ShouldReturnSingleGroup() {
+        public void GetSingleGroup_FromLoggedUser_ShouldReturnSingleGroup()
+        {
             groupsEndPoint.ShouldNotBe(null);
-
-            var singleGroup = groupsEndPoint.GetGroup("admingroup");
+            var groupName = "AdminGroup";
+            var singleGroup = groupsEndPoint.GetGroup(groupName);
 
             singleGroup.ShouldNotBe(null);
             singleGroup.ShouldBeOfType(typeof(Group));
-            singleGroup.name.ShouldBe("AdminGroup");
+            singleGroup.name.ShouldBe(groupName);
         }
-
-      
     }
 }
