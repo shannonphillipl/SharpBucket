@@ -7,7 +7,7 @@ using Repository = SharpBucket.V2.Pocos.Repository;
 namespace SharpBucket.V2.EndPoints
 {
     /// <summary>
-    /// The repositories endpoint has a number of resources you can use to manage repository resources.
+    /// The repositories endpoint has a number of resources you can use to manage repository resources. 
     /// For all repository resources, you supply a  repo_slug that identifies the specific repository.
     /// More info:
     /// https://confluence.atlassian.com/display/BITBUCKET/repositories+Endpoint
@@ -22,9 +22,9 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// List of repositories associated with an account. If the caller is properly authenticated and authorized,
-        /// this method returns a collection containing public and private repositories.
-        /// Otherwise, this method returns a collection of the public repositories.
+        /// List of repositories associated with an account. If the caller is properly authenticated and authorized, 
+        /// this method returns a collection containing public and private repositories. 
+        /// Otherwise, this method returns a collection of the public repositories. 
         /// </summary>
         /// <param name="accountName">The account whose repositories you wish to get.</param>
         /// <param name="max">The maximum number of items to return. 0 returns all items.</param>
@@ -36,7 +36,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// List of all the public repositories on Bitbucket.  This produces a paginated response.
+        /// List of all the public repositories on Bitbucket.  This produces a paginated response. 
         /// Pagination only goes forward (it's not possible to navigate to previous pages) and navigation is done by following the URL for the next page.
         /// The returned repositories are ordered by creation date, oldest repositories first. Only public repositories are returned.
         /// </summary>
@@ -52,7 +52,7 @@ namespace SharpBucket.V2.EndPoints
         #region Repository resource
 
         /// <summary>
-        /// Use this resource to get information associated with an individual repository. You can use these calls with public or private repositories.
+        /// Use this resource to get information associated with an individual repository. You can use these calls with public or private repositories. 
         /// Private repositories require the caller to authenticate with an account that has the appropriate authorization.
         /// More info:
         /// https://confluence.atlassian.com/display/BITBUCKET/repository+Resource

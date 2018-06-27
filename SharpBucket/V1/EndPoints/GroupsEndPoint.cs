@@ -43,7 +43,7 @@ namespace SharpBucket.V1.EndPoints
         }
 
         /// <summary>
-        /// Creates a new default group
+        /// Creates a new default group 
         /// </summary>
         /// <param name="name">The name of the group</param>
         /// <returns></returns>

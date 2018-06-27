@@ -4,8 +4,8 @@ using SharpBucket.V2.Pocos;
 namespace SharpBucket.V2.EndPoints
 {
     /// <summary>
-    /// Use this resource to get information associated with an individual repository.
-    /// You can use these calls with public or private repositories.
+    /// Use this resource to get information associated with an individual repository. 
+    /// You can use these calls with public or private repositories. 
     /// Private repositories require the caller to authenticate with an account that has the appropriate authorization.
     /// More info:
     /// https://confluence.atlassian.com/display/BITBUCKET/repository+Resource
@@ -35,7 +35,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Removes a repository.
+        /// Removes a repository. 
         /// </summary>
         /// <returns></returns>
         public Repository DeleteRepository()
@@ -49,7 +49,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Gets the list of accounts watching a repository.
+        /// Gets the list of accounts watching a repository. 
         /// </summary>
         /// <returns></returns>
         public List<Watcher> ListWatchers()
@@ -71,9 +71,9 @@ namespace SharpBucket.V2.EndPoints
         #region Pull Requests Resource
 
         /// <summary>
-        /// Manage pull requests for a repository. Use this resource to perform CRUD (create/read/update/delete) operations on a pull request.
-        /// This resource allows you to manage the attributes of a pull request also. For example, you can list the commits
-        /// or reviewers associated with a pull request. You can also accept or decline a pull request with this resource.
+        /// Manage pull requests for a repository. Use this resource to perform CRUD (create/read/update/delete) operations on a pull request. 
+        /// This resource allows you to manage the attributes of a pull request also. For example, you can list the commits 
+        /// or reviewers associated with a pull request. You can also accept or decline a pull request with this resource. 
         /// Finally, you can use this resource to manage the comments on a pull request as well.
         /// More info:
         /// https://confluence.atlassian.com/display/BITBUCKET/pullrequests+Resource
@@ -91,7 +91,7 @@ namespace SharpBucket.V2.EndPoints
         /// More info:
         /// https://confluence.atlassian.com/display/BITBUCKET/branch-restrictions+Resource
         /// <summary>
-        /// List the information associated with a repository's branch restrictions.
+        /// List the information associated with a repository's branch restrictions. 
         /// </summary>
         /// <returns></returns>
         public object ListBranchRestrictions()
@@ -100,7 +100,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Creates restrictions for the specified repository. You should specify a Content-Header with this call.
+        /// Creates restrictions for the specified repository. You should specify a Content-Header with this call. 
         /// </summary>
         /// <param name="restriction">The branch restriction.</param>
         /// <returns></returns>
@@ -110,7 +110,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Gets the information associated with specific restriction.
+        /// Gets the information associated with specific restriction. 
         /// </summary>
         /// <param name="restrictionId">The restriction's identifier.</param>
         /// <returns></returns>
@@ -120,7 +120,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Updates a specific branch restriction. You cannot change the kind value with this call.
+        /// Updates a specific branch restriction. You cannot change the kind value with this call. 
         /// </summary>
         /// <param name="restriction">The branch restriction.</param>
         /// <returns></returns>
@@ -130,7 +130,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Deletes the specified restriction.
+        /// Deletes the specified restriction. 
         /// </summary>
         /// <param name="restrictionId">The restriction's identifier.</param>
         /// <returns></returns>
@@ -146,16 +146,17 @@ namespace SharpBucket.V2.EndPoints
         /// More info:
         /// https://confluence.atlassian.com/display/BITBUCKET/diff+Resource
         /// <summary>
-        /// Gets the diff for the current repository.
+        /// Gets the diff for the current repository. 
         /// </summary>
         /// <param name="options">The diff options.</param>
         /// <returns></returns>
-        public string GetDiff(string sourceCommit, string destinationCommit) {
+        public string GetDiff(string sourceCommit, string destinationCommit)
+        {
             return _repositoriesEndPoint.GetDiff(_accountName, _repository, sourceCommit, destinationCommit);
         }
 
         /// <summary>
-        /// Gets the patch for an individual specification.
+        /// Gets the patch for an individual specification. 
         /// </summary>
         /// <param name="options">The patch options.</param>
         /// <returns></returns>
@@ -171,8 +172,8 @@ namespace SharpBucket.V2.EndPoints
         /// More info:
         /// https://confluence.atlassian.com/display/BITBUCKET/commits+or+commit+Resource
         /// <summary>
-        /// Gets the commit information associated with a repository.
-        /// By default, this call returns all the commits across all branches, bookmarks, and tags. The newest commit is first.
+        /// Gets the commit information associated with a repository. 
+        /// By default, this call returns all the commits across all branches, bookmarks, and tags. The newest commit is first. 
         /// </summary>
         /// <param name="branchortag">The branch or tag to get, for example, master or default.</param>
         /// <param name="max">Values greater than 0 will set a maximum number of records to return. 0 or less returns all.</param>
@@ -183,7 +184,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Gets the information associated with an individual commit.
+        /// Gets the information associated with an individual commit. 
         /// </summary>
         /// <param name="revision">The commit's SHA1.</param>
         /// <returns></returns>
@@ -214,7 +215,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Give your approval on a commit.
+        /// Give your approval on a commit. 
         /// You can only approve a comment on behalf of the authenticated account.  This returns the participant object for the current user.
         /// </summary>
         /// <param name="revision">The commit's SHA1.</param>
@@ -225,7 +226,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Revoke your approval of a commit. You can remove approvals on behalf of the authenticated account.
+        /// Revoke your approval of a commit. You can remove approvals on behalf of the authenticated account. 
         /// </summary>
         /// <param name="revision">The commit's SHA1.</param>
         /// <returns></returns>
