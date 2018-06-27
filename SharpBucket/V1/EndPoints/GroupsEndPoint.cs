@@ -5,9 +5,9 @@ using SharpBucket.V1.Pocos;
 namespace SharpBucket.V1.EndPoints
 {
     /// <summary>
-    /// The groups endpoint provides functionality for querying information about user groups,
+    /// The groups endpoint provides functionality for querying information about user groups, 
     /// creating new ones, updating memberships, and deleting them. Both individual and team accounts can define groups.
-    /// To manage group information on an individual account, the caller must authenticate with administrative rights on the account.
+    /// To manage group information on an individual account, the caller must authenticate with administrative rights on the account. 
     /// More info here:
     /// https://confluence.atlassian.com/bitbucket/groups-endpoint-296093143.html
     /// </summary>
@@ -23,7 +23,7 @@ namespace SharpBucket.V1.EndPoints
         }
 
         /// <summary>
-        /// Get a list of all groups in an account.
+        /// Get a list of all groups in an account. 
         /// </summary>
         /// <returns></returns>
         public List<Group> ListGroups()
@@ -32,7 +32,7 @@ namespace SharpBucket.V1.EndPoints
         }
 
         /// <summary>
-        /// Get the details of a group.
+        /// Get the details of a group. 
         /// </summary>
         /// <param name="group_slug">The group's slug.</param>
         /// <returns></returns>
@@ -89,7 +89,7 @@ namespace SharpBucket.V1.EndPoints
         }
 
         /// <summary>
-        /// Gets the membership for a group
+        /// Gets the membership for a group 
         /// </summary>
         /// <param name="group_slug">The group's slug.</param>
         /// <returns></returns>

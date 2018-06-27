@@ -76,7 +76,7 @@ namespace SharBucketTests.V1.EndPoints
             groupsEndPoint.ShouldNotBe(null);
             var name = Guid.NewGuid().ToString().Replace("-", string.Empty);
             var group = new Group() { name = name };
-            var new_group = groupsEndPoint.CreateGroup(group.name); //create a new group before
+            var new_group = groupsEndPoint.CreateGroup(group.name); //create a new group before 
 
             new_group.ShouldNotBe(null);
             var member = groupsEndPoint.AddMemberToGroup(new_group.slug, accountName);

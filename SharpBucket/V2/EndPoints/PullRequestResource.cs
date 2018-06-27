@@ -1,4 +1,5 @@
 ﻿using SharpBucket.V2.Pocos;
+using System.Collections.Generic;
 
 namespace SharpBucket.V2.EndPoints
 {
@@ -39,7 +40,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Give your approval on a pull request. You can only approve a request on behalf of the authenticated account.
+        /// Give your approval on a pull request. You can only approve a request on behalf of the authenticated account. 
         /// This returns the participant object for the current user.
         /// </summary>
         /// <returns></returns>
@@ -58,7 +59,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Gets the diff or patch for a pull request. This returns a 302 redirect response with the Location header
+        /// Gets the diff or patch for a pull request. This returns a 302 redirect response with the Location header 
         /// set to the URL that will perform a temporary merge and return the diff of it. The result is identical to diff in the UI.
         /// </summary>
         /// <returns></returns>
@@ -95,10 +96,10 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// List of comments on the specified pull request.
+        /// List of comments on the specified pull request. 
         /// </summary>
         /// <returns></returns>
-        public System.Collections.Generic.List<Comment> ListPullRequestComments()
+        public List<Comment> ListPullRequestComments()
         {
             return _repositoriesEndPoint.ListPullRequestComments(_accountName, _repository, _pullRequestId);
         }

@@ -21,7 +21,7 @@ namespace SharpBucket.V1
         /// </summary>
         /// <param name="baseUrl">If you are locally hosting your BitBucket repository
         /// you can use this constructor to set the url of your local Bitbucket server.
-        /// All API requests will then use this url as a base.
+        /// All API requests will then use this url as a base. 
         /// </param>
         public SharpBucketV1(string baseUrl)
         {
@@ -50,9 +50,9 @@ namespace SharpBucket.V1
         }
 
         /// <summary>
-        /// Use the user endpoints to gets information related to the currently authenticated user.
-        /// It is useful for OAuth or other in situations where the username is unknown.
-        /// This endpoint returns information about an individual or team account.
+        /// Use the user endpoints to gets information related to the currently authenticated user. 
+        /// It is useful for OAuth or other in situations where the username is unknown. 
+        /// This endpoint returns information about an individual or team account. 
         /// More info:
         /// https://confluence.atlassian.com/display/BITBUCKET/user+Endpoint
         /// </summary>
@@ -73,9 +73,9 @@ namespace SharpBucket.V1
         }
 
         /// <summary>
-        /// The groups endpoint provides functionality for querying information about user groups,
+        /// The groups endpoint provides functionality for querying information about user groups, 
         /// creating new ones, updating memberships, and deleting them. Both individual and team accounts can define groups.
-        /// To manage group information on an individual account, the caller must authenticate with administrative rights on the account.
+        /// To manage group information on an individual account, the caller must authenticate with administrative rights on the account. 
         /// More info:
         /// https://confluence.atlassian.com/bitbucket/groups-endpoint-296093143.html
         /// </summary>
