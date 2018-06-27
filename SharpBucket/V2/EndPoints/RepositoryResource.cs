@@ -35,7 +35,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Removes a repository. 
+        /// Removes a repository.  
         /// </summary>
         /// <returns></returns>
         public Repository DeleteRepository()
@@ -130,7 +130,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Deletes the specified restriction. 
+        /// Deletes the specified restriction.  
         /// </summary>
         /// <param name="restrictionId">The restriction's identifier.</param>
         /// <returns></returns>
@@ -146,7 +146,7 @@ namespace SharpBucket.V2.EndPoints
         /// More info:
         /// https://confluence.atlassian.com/display/BITBUCKET/diff+Resource
         /// <summary>
-        /// Gets the diff for the current repository. 
+        /// Gets the diff for the current repository.  
         /// </summary>
         /// <param name="options">The diff options.</param>
         /// <returns></returns>
@@ -215,7 +215,7 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
-        /// Give your approval on a commit. 
+        /// Give your approval on a commit.  
         /// You can only approve a comment on behalf of the authenticated account.  This returns the participant object for the current user.
         /// </summary>
         /// <param name="revision">The commit's SHA1.</param>

@@ -21,7 +21,7 @@ namespace SharpBucket
         /// </summary>
         protected string _baseUrl;
 
-        /// <summary>
+        /// <summary>  
         /// Use basic authentication with the BitBucket API. OAuth authentication is preferred over
         /// basic authentication, due to security reasons.
         /// </summary>
@@ -34,7 +34,7 @@ namespace SharpBucket
 
         /// <summary>
         /// Use 2 legged OAuth 1.0a authentication. This is similar to basic authentication, since
-        /// it requires the same number of steps. It is still safer to use than basic authentication,
+        /// it requires the same number of steps. It is still safer to use than basic authentication, 
         /// since you can revoke the API keys.
         /// More info:
         /// https://confluence.atlassian.com/display/BITBUCKET/OAuth+on+Bitbucket
