@@ -16,14 +16,14 @@ namespace SharBucketTests.V2.EndPoints
         public void Init()
         {
             sharpBucket = TestHelpers.GetV2ClientAuthenticatedWithOAuth();
-            teamsEndPoint = sharpBucket.TeamsEndPoint(TEAM_NAME);
+            teamsEndPoint = sharpBucket.TeamsEndPoint();
         }
 
         [Test]
         public void GetProfile_FromTeamAtlassian_ReturnsAtlassianProfile()
         {
             teamsEndPoint.ShouldNotBe(null);
-            var profile = teamsEndPoint.GetProfile();
+            var profile = teamsEndPoint.GetProfile(TEAM_NAME);
             profile.display_name.ShouldBe("Atlassian");
         }
 
@@ -31,7 +31,7 @@ namespace SharBucketTests.V2.EndPoints
         public void ListMembers_FromTeamAtlassian_ShouldReturnManyMembers()
         {
             teamsEndPoint.ShouldNotBe(null);
-            var members = teamsEndPoint.ListMembers(35);
+            var members = teamsEndPoint.ListMembers(TEAM_NAME, 35);
             members.Count.ShouldBeGreaterThan(19);
             // This test is brittle, it should be updated since the names change
             members[0].display_name.ShouldBe("Ivan Ostafiychuk");
@@ -41,7 +41,7 @@ namespace SharBucketTests.V2.EndPoints
         public void ListFollowers_FromTeamAtlassian_ShouldReturnManyFollowers()
         {
             teamsEndPoint.ShouldNotBe(null);
-            var followers = teamsEndPoint.ListFollowers(8);
+            var followers = teamsEndPoint.ListFollowers(TEAM_NAME, 8);
             followers.Count.ShouldBe(8);
             followers[0].display_name.ShouldBe("Hector Miuler Malpica Gallegos");
         }

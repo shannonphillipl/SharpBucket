@@ -24,11 +24,10 @@ namespace SharpBucket.V2
         /// <summary>
         /// Get the Teams End Point for a specific team.
         /// </summary>
-        /// <param name="teamName">The team whose team End Point you wish to get.</param>
         /// <returns></returns>
-        public TeamsEndPoint TeamsEndPoint(string teamName)
+        public TeamsEndPoint TeamsEndPoint()
         {
-            return new TeamsEndPoint(this, teamName);
+            return new TeamsEndPoint(this);
         }
 
         /// <summary>
