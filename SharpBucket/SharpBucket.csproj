@@ -93,6 +93,8 @@
     <Compile Include="V2\Pocos\Activity.cs" />
     <Compile Include="V2\Pocos\ActivityInfo.cs" />
     <Compile Include="V2\Pocos\Tag.cs" />
+    <Compile Include="V2\Pocos\RepositoryPermission.cs" />
+    <Compile Include="V2\Pocos\TeamPermission.cs" />
     <Compile Include="V2\Pocos\Update.cs" />
     <Compile Include="V2\Pocos\Comment.cs" />
     <Compile Include="V2\Pocos\CommentsInfo.cs" />

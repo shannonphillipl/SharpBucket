@@ -117,6 +117,44 @@ namespace SharpBucket.V2.EndPoints
         }
 
         /// <summary>
+        /// Returns an object for each repository permission for all of a team’s repositories.
+        /// Permissions returned are effective permissions — the highest level of permission the user has.This does not include public repositories that 
+        /// users are not granted any specific permission in, and does not distinguish between direct and indirect privileges.
+        /// Permissions can be 'admin', 'write' or 'read'
+        /// Only users with admin permission for the team may access this resource.
+        /// </summary>
+        /// <remarks>More info: https://developer.atlassian.com/bitbucket/api/2/reference/resource/teams/%7Busername%7D/permissions/repositories </remarks>
+        /// <param name="username">The team's identifier.</param>
+        /// <param name="max">The maximum number of items to return. 0 returns all items.</param>
+        public List<RepositoryPermission> ListPermissionsForRepositories(string username, string repositoryName = null, int max = 0)
+        {
+            var overrideUrl = _baseUrl + username + "/permissions/repositories";
+
+            dynamic parameters = new ExpandoObject();
+            if (!string.IsNullOrWhiteSpace(repositoryName))
+            {
+                parameters.q = "repository.name=\"" + repositoryName + "\"";
+            }
+
+            return GetPaginatedValues<RepositoryPermission>(overrideUrl, max, parameters);
+        }
+
+        /// <summary>
+        /// Returns an object for each team permission a user on the team has.
+        /// Permissions returned are effective permissions — if a user is a member of multiple groups with distinct roles, only the highest level is returned.
+        /// Permissions can be 'admin' or 'collaborator'
+        /// Only users with admin permission for the team may access this resource.
+        /// </summary>
+        /// <remarks>More info: https://developer.atlassian.com/bitbucket/api/2/reference/resource/teams/%7Busername%7D/permissions </remarks>
+        /// <param name="username">The team's identifier.</param>
+        /// <param name="max">The maximum number of items to return. 0 returns all items.</param>
+        public List<TeamPermission> ListPermissionsForTeams(string username, int max = 0)
+        {
+            var overrideUrl = _baseUrl + username + "/permissions";
+            return GetPaginatedValues<TeamPermission>(overrideUrl, max);
+        }
+
+        /// <summary>
         /// Returns all repositories owned by a user/team. This includes private repositories, but filtered down to the ones that the calling user has access to.
         /// </summary>
         /// <param name="username">The team's identifier.</param>
