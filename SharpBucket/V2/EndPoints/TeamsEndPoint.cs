@@ -78,7 +78,7 @@ namespace SharpBucket.V2.EndPoints
         /// <param name="username">The team's identifier.</param>
         public Team GetProfile(string username)
         {
-            var overrideUrl = _baseUrl + username + "/";
+            var overrideUrl = _baseUrl + username;
             return _sharpBucketV2.Get(new Team(), overrideUrl);
         }
 
@@ -90,7 +90,7 @@ namespace SharpBucket.V2.EndPoints
         /// <param name="max">The maximum number of items to return. 0 returns all items.</param>
         public List<Team> ListMembers(string username, int max = 0)
         {
-            var overrideUrl = _baseUrl + username + "members/";
+            var overrideUrl = _baseUrl + username + "/members";
             return GetPaginatedValues<Team>(overrideUrl, max);
         }
 
@@ -101,7 +101,7 @@ namespace SharpBucket.V2.EndPoints
         /// <param name="max">The maximum number of items to return. 0 returns all items.</param>
         public List<Team> ListFollowers(string username, int max = 0)
         {
-            var overrideUrl = _baseUrl + username + "followers/";
+            var overrideUrl = _baseUrl + username + "/followers";
             return GetPaginatedValues<Team>(overrideUrl, max);
         }
 
@@ -112,7 +112,7 @@ namespace SharpBucket.V2.EndPoints
         /// <param name="max">The maximum number of items to return. 0 returns all items.</param>
         public List<Team> ListFollowing(string username, int max = 0)
         {
-            var overrideUrl = _baseUrl + username + "following/";
+            var overrideUrl = _baseUrl + username + "/following";
             return GetPaginatedValues<Team>(overrideUrl, max);
         }
 
@@ -123,7 +123,7 @@ namespace SharpBucket.V2.EndPoints
         /// <param name="max">The maximum number of items to return. 0 returns all items.</param>
         public List<Repository> ListRepositories(string username, int max = 0)
         {
-            var overrideUrl = _baseUrl + username + "repositories/";
+            var overrideUrl = _baseUrl + username + "/repositories";
             return GetPaginatedValues<Repository>(overrideUrl, max);
         }
 
